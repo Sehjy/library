@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Library</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+		/>
+		<link href="./style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>
+			<h1>Library</h1>
+		</header>
+		<div class="main-disp-grid">
+			<div class="lib-list-grid">
+				<h2 id="no-books">No Books</h2>
+				<div class="addbtn">
+					<button type="submit" id="addB">
+						<i class="fas fa-plus-circle"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="lib-stats">
+				<h2 id="lib-status">Current Library Status</h2>
+				<div class="stats-count">
+					<h3>Number of Books:</h3>
+					<text id="tot-count">0</text>
+				</div>
+				<div class="stats-read">
+					<h3>Books Read:</h3>
+					<text id="read-count">0</text>
+				</div>
+				<div class="stats-nread">
+					<h3>Books to Finish:</h3>
+					<text id="nread-count">0</text>
+				</div>
+				<div class="tot-pages-read">
+					<h3>Page Count:</h3>
+					<text id="page-frac">0/0</text>
+				</div>
+			</div>
+		</div>
+
+		<div class="add-book-form">
+			<div class="input-ctn">
+				<div class="exit-ctn">
+					<button class="exit-form">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<h2 id="form-title">Add a Book to your Library</h2>
+				<label for="book-title">
+					Title of Book
+					<input type="text" id="book-title" placeholder="Title" />
+				</label>
+				<label for="book-auth">
+					Author of Book
+					<input type="text" id="book-auth" placeholder="Author" />
+				</label>
+				<label for="book-num">
+					Number of Pages
+					<input type="text" id="book-num" placeholder="Pages" />
+				</label>
+				<label for="book-pub">
+					Publishing Date
+					<input type="date" id="book-pub" />
+				</label>
+				<div class="input-toggle">
+					<label for="book-read"> Book Status: </label>
+
+					<div class="switch-ctn">
+						<text class="status-nr"> Not Read </text>
+						<label class="switch" id="form-switch">
+							<input class="input-tog" type="checkbox" />
+							<span class="slider round"></span>
+						</label>
+						<text class="status-r"> Read </text>
+					</div>
+				</div>
+
+				<div class="input-bot-btns">
+					<button class="confirmBtn">Add Book</button>
+					<button class="clearBtn">Clear</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="./script.js"></script>
+	</body>
+</html>

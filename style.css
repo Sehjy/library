@@ -1,0 +1,367 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto", sans-serif;
+}
+
+*:focus {
+	outline: 0 !important;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background: black;
+	min-height: fit-content;
+	min-width: 1000px;
+}
+
+.add-book-form {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	backdrop-filter: blur(4.5px);
+	top: 0;
+	bottom: 0;
+	display: none;
+	justify-content: center;
+	color: blanchedalmond;
+	font-size: 2rem;
+}
+
+.input-ctn {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-content: center;
+	margin: 3rem;
+	padding: 2rem;
+	background: black;
+	border: 2.5px solid blanchedalmond;
+	border-radius: 2rem;
+	overflow: hidden;
+}
+
+#form-title {
+	font-size: 2rem;
+}
+
+.input-bot-btns {
+	display: flex;
+	padding: 1rem;
+	justify-content: space-between;
+	cursor: pointer;
+}
+
+.confirmBtn {
+	width: 50%;
+	color: blanchedalmond;
+	background: black;
+	border: 2px solid blanchedalmond;
+	height: 2.5rem;
+	font-size: 1.5rem;
+	border-radius: 2rem;
+}
+.clearBtn {
+	width: 40%;
+	color: blanchedalmond;
+	background: black;
+	border: 2px solid blanchedalmond;
+	height: 2.5rem;
+	font-size: 1.5rem;
+	border-radius: 2rem;
+}
+
+.exit-form {
+	width: fit-content;
+	background-color: transparent;
+	border: thin;
+	border-radius: 50%;
+	font-size: 2rem;
+	cursor: pointer;
+	color: blanchedalmond;
+}
+
+.exit-ctn {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+#book-title,
+#book-auth,
+#book-num,
+#book-pub,
+#book-read {
+	margin-top: 0.5rem;
+	height: 3rem;
+	border: 2.5px solid blanchedalmond;
+	background: black;
+	color: blanchedalmond;
+	padding: 1rem;
+	font-size: 1rem;
+	cursor: text;
+	border-radius: 2rem;
+}
+
+::placeholder {
+	color: blanchedalmond;
+	opacity: 50%;
+}
+
+[for="book-title"] {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+[for="book-auth"] {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+[for="book-num"] {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+[for="book-pub"] {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+[for="book-read"] {
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+}
+
+.input-toggle {
+	display: flex;
+	padding: 1rem;
+	justify-content: space-between;
+}
+
+.status-nr {
+	padding-right: 10px;
+	font-size: 0.85rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-content: center;
+}
+
+.status-r {
+	padding-left: 10px;
+	font-size: 0.85rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-content: center;
+	opacity: 50%;
+}
+
+.switch-ctn {
+	display: flex;
+}
+
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: flex;
+	width: 60px;
+	height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: blanchedalmond;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: rgb(243, 188, 105);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+	background: rgb(243, 188, 105);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.input-toggle {
+	display: flex;
+	flex-direction: row;
+}
+
+header {
+	height: 13vh;
+	display: flex;
+	justify-content: center;
+	border-bottom: 0.3rem solid rgb(29, 29, 29);
+	margin: 0.5rem;
+}
+
+h1 {
+	align-self: center;
+	color: blanchedalmond;
+}
+
+.main-disp-grid {
+	display: flex;
+	height: 83.5vh;
+	margin: 0.5rem;
+}
+
+.lib-list-grid {
+	width: 70%;
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-template-rows: repeat(12, 1fr);
+	padding: 1rem;
+	align-content: space-around;
+	justify-content: space-between;
+	grid-gap: 0.5rem;
+}
+
+.lib-stats {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: space-evenly;
+	border-left: 0.3rem solid rgb(29, 29, 29);
+	text-align: center;
+	color: blanchedalmond;
+}
+
+h3 {
+	padding: 0.75rem;
+}
+
+h2 {
+	text-align: center;
+}
+
+.addbtn {
+	grid-column: 12;
+	grid-row: 12;
+}
+
+#addB {
+	background-color: transparent;
+	border: thin;
+	border-radius: 50%;
+	font-size: 3rem;
+	cursor: pointer;
+	color: blanchedalmond;
+}
+
+#addB:hover {
+	transition: all 0.3s ease;
+	animation-name: spin;
+	animation-duration: 0.3s;
+	transform: rotate(90deg) scale(1.2);
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(90deg) scale(1.2);
+	}
+}
+
+.exit-form:hover {
+	transition: all 0.3s ease;
+	animation-name: spin;
+	animation-duration: 0.3s;
+	transform: rotate(90deg) scale(1.2);
+}
+
+.confirmBtn:hover,
+.clearBtn:hover {
+	transition: all 0.2s ease;
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+#no-books {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-column: 6;
+	grid-row: 6;
+	color: blanchedalmond;
+}
+
+.bookCtn {
+	grid-column: span 3;
+	grid-row: span 4;
+	color: black;
+	background: blanchedalmond;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.exitDiv {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.deletebookbtn {
+	background-color: transparent;
+	border: thin;
+	border-radius: 50%;
+	cursor: pointer;
+	color: black;
+}
