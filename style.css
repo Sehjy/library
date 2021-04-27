@@ -265,7 +265,7 @@ h1 {
 	padding: 1rem;
 	align-content: space-around;
 	justify-content: space-between;
-	grid-gap: 0.5rem;
+	grid-gap: 0.6rem;
 }
 
 .lib-stats {
@@ -351,6 +351,8 @@ h2 {
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 1rem;
+	font-weight: bolder;
+	box-shadow: 5px 10px 5px rgb(56, 56, 56);
 }
 
 .exitDiv {
@@ -364,4 +366,112 @@ h2 {
 	border-radius: 50%;
 	cursor: pointer;
 	color: black;
+}
+
+.read-toggle-ctn {
+	display: flex;
+	justify-content: center;
+	padding-right: 20px;
+}
+
+.status-n2 {
+	padding-right: 10px;
+	font-size: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-content: center;
+}
+
+.status-r2 {
+	padding-left: 10px;
+	font-size: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-content: center;
+	opacity: 50%;
+}
+.read-toggle {
+	display: flex;
+}
+
+/* The switch - the box around the slider */
+#form-switch2 {
+	position: relative;
+	display: flex;
+	width: 30px;
+	height: 17px;
+}
+
+/* Hide default HTML checkbox */
+#form-switch2 input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.slider2 {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgb(0, 0, 0);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider2:before {
+	position: absolute;
+	content: "";
+	height: 13px;
+	width: 13px;
+	left: 2px;
+	bottom: 2px;
+	background-color: rgb(243, 188, 105);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:focus + .slider2 {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider2:before {
+	-webkit-transform: translateX(13px);
+	-ms-transform: translateX(13px);
+	transform: translateX(13px);
+	background: rgb(243, 188, 105);
+}
+
+/* Rounded sliders */
+.slider2.round2 {
+	border-radius: 17px;
+}
+
+.slider2.round2:before {
+	border-radius: 50%;
+}
+
+.read-toggle-ctn {
+	display: flex;
+	flex-direction: row;
+}
+
+.book-inLib-title {
+	text-align: center;
+	font-size: larger;
+	font-weight: bolder;
+}
+
+.book-inLib-auth,
+.book-inLib-pages,
+.book-inLib-date {
+	display: flex;
+	justify-content: space-between;
 }
