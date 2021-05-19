@@ -19,6 +19,8 @@ const invalidAuthor = document.querySelector(".invalid-form-auth");
 const invalidPages = document.querySelector(".invalid-form-page");
 const invalidDate = document.querySelector(".invalid-form-date");
 const startPop = document.querySelector(".start-pop");
+const libName = document.querySelector(".name-title");
+const libTitle = document.querySelector(".logo-title");
 startPop.style.display = "flex";
 //Book class and functions-----------------------------------
 
@@ -43,6 +45,8 @@ class Book {
 		this.displayed = displayed;
 	}
 }
+
+let userMap = new Map();
 
 //Book array
 let myLibrary = [];
@@ -116,15 +120,38 @@ function addNewBookfromForm() {
 }
 
 function setNameandRemovePop() {
-	const libName = document.querySelector(".name-title");
-	const libTitle = document.querySelector(".logo-title");
-
 	if (libName.value !== "") {
-		libTitle.innerText = libName.value + `'s` + " Library";
-		localStorage.setItem("myName", JSON.stringify(libTitle.innerText));
+		if (JSON.parse(localStorage.getItem(libName.value)) !== null) {
+			userMap = objToStrMap(JSON.parse(localStorage.getItem(libName.value)));
+			if (userMap.get(libName.value)) {
+				libTitle.innerText = libName.value + `'s` + " Library";
+				myLibrary = userMap.get(libName.value);
+				if (myLibrary.length !== 0) {
+				}
+				for (let temp of myLibrary) {
+					temp.displayed = "false";
+				}
+			}
+		} else {
+			libTitle.innerText = libName.value + `'s` + " Library";
+			userMap.set(libName.value, myLibrary);
+		}
+		localStorage.setItem(libName.value, JSON.stringify(strMapToObj(userMap)));
+		appendFromArray();
+
+		// myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+		// if (myLibrary === null) {
+		// 	myLibrary = [];
+		// } else {
+		// 	for (let temp of myLibrary) {
+		// 		temp.displayed = "false";
+		// 	}
+		// }
+		// appendFromArray();
 	} else {
 		libTitle.value.innerText = "Library";
 	}
+	saveLocal();
 	startPop.style.display = "none";
 }
 
@@ -370,28 +397,55 @@ confirmButton.addEventListener("click", function (e) {
 });
 
 function saveLocal() {
+	userMap.set(libName.value, myLibrary);
+	localStorage.setItem(libName.value, JSON.stringify(strMapToObj(userMap)));
+
 	localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
-function restoreLocal() {
-	let prevName = JSON.parse(localStorage.getItem("myName"));
-	if (prevName !== null) {
-		let templibTitle = document.querySelector(".logo-title");
+// function restoreLocal(inputName) {
+// 	let tempMap = JSON.parse(localStorage.getItem("User"));
+// 	if (tempMap.get(inputName)) {
+// 		let templibTitle = document.querySelector(".logo-title");
+// 		templibTitle.innerText = inputName + `'s` + " Library";
+// 		myLibrary = tempMap.get(inputName);
+// 		if (myLibrary.length !== 0) {
+// 		}
+// 			for (let temp of myLibrary) {
+// 				temp.displayed = "false";
+// 		}
+// 	}
 
-		templibTitle.innerText = prevName;
+// 	else {
+// 		myLibrary = [];
+// 	}
 
-		startPop.style.display = "none";
+// 	appendFromArray();
+
+// 	// myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+// 	// if (myLibrary === null) {
+// 	// 	myLibrary = [];
+// 	// } else {
+// 	// 	for (let temp of myLibrary) {
+// 	// 		temp.displayed = "false";
+// 	// 	}
+// 	// }
+// 	// appendFromArray();
+// }
+
+function strMapToObj(strMap) {
+	let obj = Object.create(null);
+	for (let [k, v] of strMap) {
+		// We don’t escape the key '__proto__'
+		// which can cause problems on older engines
+		obj[k] = v;
 	}
-
-	myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
-	if (myLibrary === null) {
-		myLibrary = [];
-	} else {
-		for (let temp of myLibrary) {
-			temp.displayed = "false";
-		}
-	}
-	appendFromArray();
+	return obj;
 }
-
-restoreLocal();
+function objToStrMap(obj) {
+	let strMap = new Map();
+	for (let k of Object.keys(obj)) {
+		strMap.set(k, obj[k]);
+	}
+	return strMap;
+}
