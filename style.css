@@ -538,7 +538,7 @@ input:checked + .slider2:before {
 
 .start-ctn {
 	display: flex;
-	height: 50vh;
+	height: 30vh;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-content: center;

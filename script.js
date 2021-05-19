@@ -21,6 +21,7 @@ const invalidDate = document.querySelector(".invalid-form-date");
 const startPop = document.querySelector(".start-pop");
 const libName = document.querySelector(".name-title");
 const libTitle = document.querySelector(".logo-title");
+const resetAll = document.querySelector(".reset-all");
 startPop.style.display = "flex";
 //Book class and functions-----------------------------------
 
@@ -152,6 +153,7 @@ function setNameandRemovePop() {
 		libTitle.value.innerText = "Library";
 	}
 	saveLocal();
+	updateStatus();
 	startPop.style.display = "none";
 }
 
@@ -352,6 +354,12 @@ libCtn.addEventListener("click", function (event) {
 	if (myLibrary.length !== 0) {
 		event.target.addEventListener("click", deleteBookFromLib(event));
 	}
+});
+
+resetAll.addEventListener("click", function () {
+	localStorage.removeItem(libName.value);
+	location.reload();
+	return false;
 });
 
 inputFnread.addEventListener("click", function () {
