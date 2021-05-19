@@ -10,23 +10,37 @@ const clearInputBtn = document.querySelector(".clearBtn");
 const inputFnread = document.querySelector(".input-tog");
 const inputFnrText = document.querySelector(".status-nr");
 const inputFrText = document.querySelector(".status-r");
-
+const bookCount = document.getElementById("tot-count");
+const readCount = document.getElementById("read-count");
+const nreadCount = document.getElementById("nread-count");
+const pageCount = document.getElementById("page-frac");
+const invalidTitle = document.querySelector(".invalid-form-title");
+const invalidAuthor = document.querySelector(".invalid-form-auth");
+const invalidPages = document.querySelector(".invalid-form-page");
+const invalidDate = document.querySelector(".invalid-form-date");
+const startPop = document.querySelector(".start-pop");
+startPop.style.display = "flex";
 //Book class and functions-----------------------------------
+
+//MOST FUNCTIONS WORKING WELL TOMORROW DDINGLOCAL/CLOUD
+//STORAGE AND THEN DONE!!!!! ALSO ADDING "" LIBRARY PLUS A LOGO
 
 class Book {
 	//constructor
 	constructor(
 		title = "unknown",
 		author = "unknown",
-		numPages = "0",
+		numPages = 0,
 		date = "mm, dd, yyyy",
-		read = "false"
+		read = "false",
+		displayed = "false"
 	) {
 		this.title = title;
 		this.author = author;
 		this.numPages = numPages;
 		this.date = date;
 		this.read = read;
+		this.displayed = displayed;
 	}
 }
 
@@ -35,26 +49,86 @@ let myLibrary = [];
 
 //add a book object to my library
 function addBookToLibrary(newBook) {
-	if (myLibrary.some((book) => book.title === newBook.title)) return false;
-	myLibrary.push(newBook);
-	return true;
+	if (
+		myLibrary.some((book) => book.title === newBook.title) ||
+		newBook.title === ""
+	) {
+		invalidTitle.style.display = "flex";
+	} else {
+		invalidTitle.style.display = "none";
+	}
+	if (newBook.author === "") {
+		invalidAuthor.style.display = "flex";
+	} else {
+		invalidAuthor.style.display = "none";
+	}
+	if (newBook.numPages !== newBook.numPages) {
+		invalidPages.style.display = "flex";
+	} else {
+		invalidPages.style.display = "none";
+	}
+	if (Date.parse(newBook.date) !== Date.parse(newBook.date)) {
+		invalidDate.style.display = "flex";
+	} else {
+		invalidDate.style.display = "none";
+	}
+	if (
+		invalidDate.style.display === "flex" ||
+		invalidAuthor.style.display === "flex" ||
+		invalidPages.style.display === "flex" ||
+		invalidTitle.style.display === "flex"
+	) {
+		return false;
+	} else {
+		myLibrary.push(newBook);
+		saveLocal();
+		return true;
+	}
+}
+
+function appendFromArray() {
+	for (const c of myLibrary) {
+		if (c.displayed === "false") {
+			createBook(c.title, c.author, c.numPages, c.date, c.read);
+			c.displayed = "true";
+		}
+	}
+	if (myLibrary.length > 0) {
+		inputForm.style.display = "none";
+		noBooks.style.display = "none";
+	}
+	saveLocal();
 }
 
 //removes book from the array of books
 function removeBookfromLib(bookTitle) {
 	myLibrary = myLibrary.filter((book) => book.title !== bookTitle);
+	saveLocal();
 }
 
 function addNewBookfromForm() {
-	const title = document.getElementById("book-title").value;
-	const author = document.getElementById("book-auth").value;
-	const numPages = document.getElementById("book-num").value;
+	const title = document.getElementById("book-title").value.toLowerCase();
+	const author = document.getElementById("book-auth").value.toLowerCase();
+	const numPages = parseInt(document.getElementById("book-num").value);
 	const date = document.getElementById("book-pub").value;
 	const read = document.getElementById("tog-val").checked;
 	return new Book(title, author, numPages, date, read);
 }
 
-function createBook(event) {
+function setNameandRemovePop() {
+	const libName = document.querySelector(".name-title");
+	const libTitle = document.querySelector(".logo-title");
+
+	if (libName.value !== "") {
+		libTitle.innerText = libName.value + `'s` + " Library";
+		localStorage.setItem("myName", JSON.stringify(libTitle.innerText));
+	} else {
+		libTitle.value.innerText = "Library";
+	}
+	startPop.style.display = "none";
+}
+
+function createBook(title, author, numPages, date, read) {
 	const bookDiv = document.createElement("div");
 	bookDiv.classList.add("bookCtn");
 	libCtn.appendChild(bookDiv);
@@ -123,28 +197,33 @@ function createBook(event) {
 	exitDiv.classList.add("exitDiv");
 	deleteBookbtn.classList.add("deletebookbtn");
 
-	titleText.innerText = document.getElementById("book-title").value;
+	//titleText.innerText = displayLibBook.title;
+	titleText.innerText = title;
+	titleText.style.textTransform = "capitalize";
 	authorPreText.innerText = "Author: ";
-	authorText.innerText = document.getElementById("book-auth").value;
+	//authorText.innerText = displayLibBook.author;
+	authorText.innerText = author;
+	authorText.style.textTransform = "capitalize";
 	pagesPreText.innerText = "Pages: ";
-	pagesText.innerText = document.getElementById("book-num").value;
+	pagesText.innerText = numPages;
 	datePreText.innerText = "Published: ";
-	dateText.innerText = document.getElementById("book-pub").value;
+	dateText.innerText = date;
 	deleteBookbtn.innerHTML = '<i class="fas fa-times-circle"></i>';
-	inputForm.style.display = "none";
-	noBooks.style.display = "none";
 	titleText.classList.add("title-inCtn");
 	authorText.classList.add("auth-inCtn");
 	pagesText.classList.add("pages-inCtn");
 	dateText.classList.add("date-inCtn");
-	readToggle.checked = document.querySelector(".input-tog").checked;
+	readToggle.checked = read;
 	if (readToggle.checked === true) {
 		yR.style.opacity = "100%";
 		nR.style.opacity = "50%";
-		bookDiv.style.opacity = "75%";
+		bookDiv.style.background =
+			"linear-gradient(rgb(255,235,205) 70%, rgb(188, 228, 172))";
 	} else {
 		yR.style.opacity = "50%";
 		nR.style.opacity = "100%";
+		bookDiv.style.background =
+			"linear-gradient(rgb(255,235,205) 70%, rgb(228, 150, 150))";
 	}
 	bookDiv.id = titleText.innerText;
 }
@@ -155,6 +234,10 @@ function resetForm() {
 	document.getElementById("book-num").value = "";
 	document.getElementById("book-pub").value = "";
 	document.getElementById("tog-val").checked = false;
+	invalidDate.style.display = "none";
+	invalidAuthor.style.display = "none";
+	invalidPages.style.display = "none";
+	invalidTitle.style.display = "none";
 }
 
 function deleteBookFromLib(event) {
@@ -162,7 +245,9 @@ function deleteBookFromLib(event) {
 		myLibrary.length != 0 &&
 		event.target.parentNode.classList.contains("deletebookbtn")
 	) {
-		removeBookfromLib(event.target.parentNode.parentNode.parentNode.id);
+		removeBookfromLib(
+			event.target.parentNode.parentNode.parentNode.id.toLowerCase()
+		);
 		event.target.parentNode.parentNode.parentNode.remove();
 		if (myLibrary.length === 0) {
 			noBooks.style.display = "flex";
@@ -175,8 +260,8 @@ function deleteBookFromLib(event) {
 					readText.style.opacity = "50%";
 				}
 			}
-			event.target.parentNode.parentNode.parentNode.parentNode.style.opacity =
-				"100%";
+			event.target.parentNode.parentNode.parentNode.parentNode.style.background =
+				"linear-gradient(rgb(255,235,205) 70%, rgb(228, 150, 150))";
 		} else {
 			event.target.parentNode.parentNode.firstChild.style.opacity = "50%";
 			for (let readText of event.target.parentNode.parentNode.children) {
@@ -184,12 +269,15 @@ function deleteBookFromLib(event) {
 					readText.style.opacity = "100%";
 				}
 			}
-			event.target.parentNode.parentNode.parentNode.parentNode.style.opacity =
-				"75%";
+			event.target.parentNode.parentNode.parentNode.parentNode.style.background =
+				"linear-gradient(rgb(255,235,205) 70%, rgb(188, 228, 172))";
 		}
-		findBook(event.target.parentNode.parentNode.parentNode.parentNode.id).read =
-			event.target.checked;
+		findBook(
+			event.target.parentNode.parentNode.parentNode.parentNode.id.toLowerCase()
+		).read = event.target.checked;
 	}
+	updateStatus();
+	saveLocal();
 }
 
 function findBook(bookName) {
@@ -199,6 +287,23 @@ function findBook(bookName) {
 		}
 	}
 	return null;
+}
+
+function updateStatus() {
+	let numRead = 0;
+	let totPages = 0;
+	let totbooks = 0;
+	for (let book of myLibrary) {
+		if (book.read === true) {
+			numRead++;
+		}
+		totbooks = totbooks + 1;
+		totPages = totPages + parseInt(book.numPages);
+	}
+	bookCount.innerText = totbooks;
+	readCount.innerText = numRead;
+	nreadCount.innerText = totbooks - numRead;
+	pageCount.innerText = totPages;
 }
 
 //eventListeners---------------------------------------------
@@ -233,11 +338,60 @@ inputFnread.addEventListener("click", function () {
 	}
 });
 
+window.addEventListener("keydown", (e) => {
+	if (e.key === "Escape" && inputForm.style.display === "flex") {
+		inputForm.style.display = "none";
+	}
+
+	if (e.key === "Enter" && inputForm.style.display === "flex") {
+		let confirmed = addNewBookfromForm();
+		if (addBookToLibrary(confirmed)) {
+			appendFromArray();
+			inputForm.style.display = "none";
+			noBooks.style.display = "none";
+			updateStatus();
+		} else {
+			alert("Input Invalid!");
+		}
+	}
+	if (e.key === "Enter" && startPop.style.display === "flex") {
+		setNameandRemovePop();
+	}
+});
+
 confirmButton.addEventListener("click", function (e) {
-	if (addBookToLibrary(addNewBookfromForm())) {
-		addBookToLibrary(addNewBookfromForm());
-		createBook(e);
+	let confirmed = addNewBookfromForm();
+	if (addBookToLibrary(confirmed)) {
+		appendFromArray();
+		updateStatus();
 	} else {
 		alert("Input Invalid!");
 	}
 });
+
+function saveLocal() {
+	localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function restoreLocal() {
+	let prevName = JSON.parse(localStorage.getItem("myName"));
+	if (prevName !== null) {
+		let templibTitle = document.querySelector(".logo-title");
+
+		templibTitle.innerText = prevName;
+
+		startPop.style.display = "none";
+	}
+
+	myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+	if (myLibrary === null) {
+		myLibrary = [];
+	} else {
+		for (let temp of myLibrary) {
+			temp.displayed = "false";
+		}
+	}
+	appendFromArray();
+}
+
+restoreLocal();

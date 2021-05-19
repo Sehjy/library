@@ -17,11 +17,41 @@
 			crossorigin="anonymous"
 		/>
 		<link href="./style.css" rel="stylesheet" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"
+		/>
 	</head>
 	<body>
-		<header>
-			<h1>Library</h1>
-		</header>
+		<div class="start-pop">
+			<div class="start-ctn">
+				<h2 class="start-title">Welcome to your Library</h2>
+
+				<label class="user-name">
+					<text>Name:</text>
+					<input type="text" class="name-title" placeholder="Name" />
+				</label>
+			</div>
+		</div>
+		<div class="heading">
+			<header>
+				<div class="logo">
+					<img
+						src="https://www.flaticon.com/svg/static/icons/svg/1164/1164682.svg"
+						alt="a Book Logo"
+						class="logo-img"
+					/>
+					<h1 class="logo-title">My Library</h1>
+				</div>
+				<div class="reset-all-ctn">
+					<button class="reset-all">
+						<i class="fas fa-trash-restore-alt"></i>
+					</button>
+					<text class="reset-text">Reset Library</text>
+				</div>
+			</header>
+		</div>
 		<div class="main-disp-grid">
 			<div class="lib-list-grid">
 				<h2 id="no-books">No Books</h2>
@@ -62,19 +92,33 @@
 				</div>
 				<h2 id="form-title">Add a Book to your Library</h2>
 				<label for="book-title">
-					Title of Book
+					<div class="form-title-ctn">
+						<text>Title of Book</text>
+						<text class="invalid-form-title"
+							>*Duplicate/blank titles not allowed*</text
+						>
+					</div>
 					<input type="text" id="book-title" placeholder="Title" />
 				</label>
 				<label for="book-auth">
-					Author of Book
+					<div class="form-auth-ctn">
+						<text>Author of Book</text>
+						<text class="invalid-form-auth">*Author's name missing*</text>
+					</div>
 					<input type="text" id="book-auth" placeholder="Author" />
 				</label>
 				<label for="book-num">
-					Number of Pages
+					<div class="form-num-ctn">
+						<text>Number of Pages</text>
+						<text class="invalid-form-page">*Enter valid page count*</text>
+					</div>
 					<input type="text" id="book-num" placeholder="Pages" />
 				</label>
 				<label for="book-pub">
-					Publishing Date
+					<div class="form-date-ctn">
+						<text>Publishing Date</text>
+						<text class="invalid-form-date">*Enter valid date*</text>
+					</div>
 					<input type="date" id="book-pub" />
 				</label>
 				<div class="input-toggle">

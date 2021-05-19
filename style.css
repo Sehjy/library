@@ -3,6 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: "Roboto", sans-serif;
+	font-weight: bolder;
 }
 
 *:focus {
@@ -13,7 +14,7 @@ body {
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
-	background: black;
+	background: rgb(46, 46, 46);
 	min-height: fit-content;
 	min-width: 1000px;
 }
@@ -238,16 +239,27 @@ input:checked + .slider:before {
 	flex-direction: row;
 }
 
-header {
-	height: 13vh;
+.logo {
 	display: flex;
 	justify-content: center;
-	border-bottom: 0.3rem solid rgb(29, 29, 29);
-	margin: 0.5rem;
+	flex-direction: row;
+	align-items: center;
 }
 
-h1 {
-	align-self: center;
+.logo-title {
+	display: flex;
+	color: blanchedalmond;
+	padding-left: 0.3rem;
+	font-size: 2.5rem;
+}
+
+.logo-img {
+	height: 2.5rem;
+	display: flex;
+	padding-right: 0.3rem;
+	background-color: transparent;
+	border: thin;
+	cursor: pointer;
 	color: blanchedalmond;
 }
 
@@ -274,13 +286,17 @@ h1 {
 	flex-direction: column;
 	align-content: center;
 	justify-content: space-evenly;
-	border-left: 0.3rem solid rgb(29, 29, 29);
+	border-left: 0.3rem solid rgb(22, 22, 22);
 	text-align: center;
 	color: blanchedalmond;
 }
 
+#lib-status {
+	text-decoration: underline;
+}
 h3 {
 	padding: 0.75rem;
+	text-decoration: underline;
 }
 
 h2 {
@@ -343,16 +359,19 @@ h2 {
 }
 
 .bookCtn {
-	grid-column: span 3;
+	grid-column: span 4;
 	grid-row: span 4;
 	color: black;
-	background: blanchedalmond;
+	background: linear-gradient(blanchedalmond 70%, rgb(228, 172, 172));
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	padding: 1rem;
-	font-weight: bolder;
-	box-shadow: 5px 10px 5px rgb(56, 56, 56);
+	padding-bottom: 0.5rem;
+	font-weight: boldest;
+	box-shadow: 8px 10px 10px 0px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+	border: 3px solid black;
 }
 
 .exitDiv {
@@ -366,6 +385,7 @@ h2 {
 	border-radius: 50%;
 	cursor: pointer;
 	color: black;
+	font-size: 1rem;
 }
 
 .read-toggle-ctn {
@@ -465,8 +485,9 @@ input:checked + .slider2:before {
 
 .book-inLib-title {
 	text-align: center;
-	font-size: larger;
+	font-size: 2rem;
 	font-weight: bolder;
+	text-decoration: underline;
 }
 
 .book-inLib-auth,
@@ -474,4 +495,123 @@ input:checked + .slider2:before {
 .book-inLib-date {
 	display: flex;
 	justify-content: space-between;
+	font-size: 1.3rem;
+}
+
+.invalid-form-title,
+.invalid-form-auth,
+.invalid-form-page,
+.invalid-form-date {
+	display: none;
+	justify-content: flex-end;
+	font-size: 0.8rem;
+	color: red;
+	align-self: center;
+}
+
+.form-title-ctn,
+.form-auth-ctn,
+.form-num-ctn,
+.form-date-ctn {
+	display: flex;
+	justify-content: space-between;
+}
+
+.start-pop {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	backdrop-filter: blur(4.5px);
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	color: blanchedalmond;
+	font-size: 2rem;
+}
+
+.lib-name-ctn,
+.start-title,
+.user-name {
+	padding: 1rem;
+}
+
+.start-ctn {
+	display: flex;
+	height: 50vh;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	margin: 3rem;
+	padding: 1rem;
+	background: black;
+	border: 2.5px solid blanchedalmond;
+	border-radius: 2rem;
+	overflow: hidden;
+	text-align: center;
+}
+
+.user-name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 3rem;
+}
+
+.name-title {
+	height: 2rem;
+	width: 15rem;
+	border-radius: 3rem;
+	margin-top: 0.5rem;
+	margin-left: 1rem;
+	border: 2.5px solid blanchedalmond;
+	background: black;
+	color: blanchedalmond;
+	padding: 1rem;
+	font-size: 1rem;
+	cursor: text;
+}
+
+header {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.heading {
+	height: 13vh;
+	display: flex;
+	justify-content: center;
+	border-bottom: 0.3rem solid rgb(22, 22, 22);
+	margin: 0.5rem;
+	padding: 1rem;
+}
+
+.reset-all {
+	background-color: transparent;
+	border: thin;
+	border-radius: 50%;
+	font-size: 3rem;
+	cursor: pointer;
+	color: blanchedalmond;
+}
+
+.reset-all-ctn:hover {
+	transition: all 0.3s ease;
+	transform: scale(1.2);
+}
+
+.logo {
+	width: 67%;
+}
+
+.reset-all-ctn {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+}
+
+.reset-text {
+	color: blanchedalmond;
 }
